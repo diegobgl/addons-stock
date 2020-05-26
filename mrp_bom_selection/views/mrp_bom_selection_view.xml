@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_bom_selection_view" model="ir.ui.view">
+        <field name="name">mrp.bom.selection.form</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <label for="qty_min" string="Lot Quantity"/>
+                    <div class="o_row">
+                        <field name="qty_min"/>
+                        /
+                        <field name="qty_max"/>
+                    </div>
+                <label for="date_start" string="Validity Period"/>
+                    <div class="o_row">
+                        <field name="date_start"/>
+                        /
+                        <field name="date_end"/>
+                    </div>
+            </field>
+            <field name="picking_type_id" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+    
+   <record id="mrp_bom_sequence_tree_view" model="ir.ui.view">
+         <field name="name">mrp.bom.selection.tree</field>
+         <field name="model">mrp.bom</field>
+         <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+         <field name="arch" type="xml">
+            <field name="routing_id" position="after">
+                <field name="qty_min"/>
+                <field name="qty_max"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </field>
+         </field>
+   </record>
+</odoo>

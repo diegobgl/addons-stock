@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Manufacturing Order -->
+        <record id="app_mrp_production_tree_view" model="ir.ui.view">
+            <field name="name">app.mrp.production.tree</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_qty']" position="after">
+                    <field name="qty_finished_total"/>
+                    <field name="qty_done_total"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="app_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">app.mrp.production.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bom_id']" position="before">
+                    <label for="qty_done_total" string="Inventory/Finished"/>
+                    <div class="o_row">
+                        <field name="qty_done_total" readonly="1"/>
+                        <span class="ml4 mr4">/</span>
+                        <field name="qty_finished_total" readonly="1"/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='finished_move_line_ids']/tree/field[@name='done_move']" position="after">
+                    <field name="date"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

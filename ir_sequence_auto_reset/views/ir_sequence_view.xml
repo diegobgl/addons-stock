@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sequence_view_inherit" model="ir.ui.view">
+            <field name="name">sequence_view_inherit</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_range_ids']" position="after">
+                    <group>
+                        <group>
+                            <label for="auto_reset"/>
+                            <div style="display: inline-flex">
+                                <field name="auto_reset"/>
+                                <span style="margin-left: 5px"
+                                      attrs="{'invisible': [('auto_reset','=',False)], 'required': [('auto_reset','!=',False)]}">after</span>
+                                <field style="margin-left: 5px" name="reset_period_num"
+                                       attrs="{'invisible': [('auto_reset','=',False)], 'required': [('auto_reset','!=',False)]}"/>
+                                <field style="margin-left: 5px" name="reset_period_type"
+                                       attrs="{'invisible': [('auto_reset','=',False)], 'required': [('auto_reset','!=',False)]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="next_reset_call"
+                                   attrs="{'invisible': [('auto_reset','=',False)], 'required': [('auto_reset','!=',False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

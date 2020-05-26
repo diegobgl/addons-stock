@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_change_confirm" model="ir.ui.view">
+            <field name="name">Confirm the Workcenter Assigned or Change</field>
+            <field name="model">mrp.change.confirm.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Confirm the Workcenter Assigned or Change">
+                    <h2>
+                      Confirm the assigned workcenter or select another manually
+                    </h2>
+                    <group>
+                        <field name="workcenter_pool_id" invisible="1"/>
+                        <field name="workorder_id" invisible="1"/>
+                        <field name="workcenter_id" invisible="1"/>
+                        <field name="workcenter_pool_line_id" widget="selection" domain="[('workcenter_pool_id', '=', workcenter_pool_id),('workcenter_id.active', '=', True)]" string="Workcenter assigned"/>
+                    </group>
+                    <footer>
+                        <button name="confirm_start_work" string="Confirm and Start" type="object" class="btn-primary"/>
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_change_confirm" model="ir.actions.act_window">
+            <field name="name">Confirm the Workcenter Assigned or Change</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.change.confirm.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_change_confirm"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

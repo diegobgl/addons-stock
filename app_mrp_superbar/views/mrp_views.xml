@@ -1,0 +1,47 @@
+<odoo>
+  <data>
+      <!-- mrp production -->
+    <record id="view_mrp_production_filter_super" model="ir.ui.view">
+        <field name="name">mrp.production.select.superbar</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search">
+                <superbar position="right" view_mode="kanban,tree, pivot, graph">
+                    <field name="routing_id"/>
+                    <field name="state"/>
+                </superbar>
+            </xpath>
+        </field>
+    </record>
+      <!-- mrp work order -->
+    <record id="view_mrp_production_work_order_search_superbar" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.search.superbar</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_work_order_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search">
+                <superbar position="right" view_mode="kanban,tree, pivot, graph">
+                    <field name="workcenter_id"/>
+                    <field name="state"/>
+                </superbar>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_workcenter_form_view_filter_superbar" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.select.superbar</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.view_mrp_production_workcenter_form_view_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search">
+                <superbar position="right" view_mode="kanban,tree, pivot, graph">
+                    <field name="workcenter_id"/>
+                    <field name="state"/>
+                </superbar>
+            </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

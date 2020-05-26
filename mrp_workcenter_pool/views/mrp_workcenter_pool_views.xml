@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Workcerter Pool -->
+        <record id="mrp_workcenter_pool_form_view" model="ir.ui.view">
+            <field name="name">mrp.workcenter.pool.form</field>
+            <field name="model">mrp.workcenter.pool</field>
+            <field name="arch" type="xml">
+                <form string="Workcenter Pool">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="toggle_active" type="object" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}" string="Active"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <notebook>
+                            <page string="Work Centers">
+                                <field name="line_ids">
+                                    <tree string="Workcenter Pool Lines" editable="bottom" default_order="priority_order">
+                                        <field name="workcenter_id"/>
+                                        <field name="priority_order"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form string="Workcenter Pool Lines">
+                                      <group>
+                                        <field name="workcenter_id"/>
+                                        <field name="priority_order"/>
+                                        <field name="state"/>
+                                      </group>
+                                      <footer>
+                                          <button name="disable_wc" string="Disable Workcenter" type="object" class="btn-primary" attrs="{'invisible': [('state', '=', 'Disable')]}"/>
+                                          <button name="enable_wc" string="Enable Workcenter" type="object" class="btn-primary" attrs="{'invisible': [('state', '=', 'Enable')]}"/>
+                                      </footer>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_workcenter_pool_line_form_view" model="ir.ui.view">
+            <field name="name">mrp.workcenter.pool.line.form</field>
+            <field name="model">mrp.workcenter.pool.line</field>
+            <field name="arch" type="xml">
+                <form string="Workcenter Pool Line">
+                    <sheet>
+                        <field name="workcenter_id"/>
+                        <field name="priority_order"/>
+                        <field name="state"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_workcenter_pool_tree_view" model="ir.ui.view">
+            <field name="name">mrp.workcenter.pool.tree</field>
+            <field name="model">mrp.workcenter.pool</field>
+            <field name="arch" type="xml">
+                <tree string="Workcenter Pools">
+                  <field name="name"/>
+                  <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="mrp_workcenter_pool_action" model="ir.actions.act_window">
+            <field name="name">Workcenter Pools</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.workcenter.pool</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="mrp_workcenter_pool_tree_view"/>
+            <!-- <field name="search_view_id" ref="mrp_routing_search_view"/> -->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a new Workcenter Pools.
+              </p><p>
+                Workcenter Pool should be a group of workcenters that on the particular
+                production can do the job on the production Route.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_mrp_workcenter_pool_action"
+          action="mrp_workcenter_pool_action"
+          parent="mrp.menu_mrp_bom"
+          groups="mrp.group_mrp_routings"
+          sequence="95"/>
+
+        <record id="mrp_routing_workcenter_form_view_inherited" model="ir.ui.view">
+            <field name="name">mrp.routing.workcenter.form.inherited</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='workcenter_id']" position="replace">
+                    <field name="workcenter_pool_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_routing_workcenter_tree_view_inherited" model="ir.ui.view">
+            <field name="name">mrp.routing.workcenter.tree.inherited</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='workcenter_id']" position="replace">
+                    <field name="workcenter_pool_id" domain="[('active', '=', True)]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
